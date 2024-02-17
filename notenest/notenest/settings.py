@@ -26,6 +26,13 @@ SECRET_KEY = 'django-insecure-fqo@*%15gd*@-!bob1115gr+ps@@sw9vi5&1mg0@(vsje9*h+$
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# settings.py
+
+...
+
+AUTH_USER_MODEL = 'authentication.User'
+
+...
 
 
 # Application definition
@@ -37,7 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',  # Authentication and User Management App
+    'academic_info',   # Academic Information Management App
+    'quiz_system',     # Quiz and Question Management App
+    'study_materials', # Study Material Management App
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
