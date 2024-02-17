@@ -1,0 +1,146 @@
+<!-- authentication/home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar Styles */
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Adjusted Vertical Container Styles */
+        .vertical-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin: 20px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .vertical-container a {
+            text-decoration: none;
+            margin: 10px;
+            padding: 10px;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #8caccf;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#">Home</a>
+        <div class="dropdown">
+            <a href="#">Material</a>
+            <div class="dropdown-content">
+                <a href="sem.html">CE</a>
+                <a href="#">IT</a>
+                <a href="#">CH</a>
+                <a href="#">MH</a>
+                <a href="#">EC</a>
+                <a href="#">IC</a>
+                <a href="#">CL</a>
+                <!-- Add more semesters as needed -->
+            </div>
+        </div>
+        <a href="#">Documentation</a>
+        
+        {% if user.is_authenticated %}
+            <a href="#">Profile</a>
+        {% endif %}
+    </nav>
+
+    <!-- Adjusted Vertical Container for Signup/Login and Social Media Buttons -->
+    <div class="vertical-container">
+        <div class="dropdown">
+            <a href="#">More</a>
+            <div class="dropdown-content">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'register' %}">Sign Up</a>
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Google</a>
+                {% if user.is_authenticated %}
+                    <a href="#">Profile</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact Us</a>
+    </footer>
+
+</body>
+</html>
