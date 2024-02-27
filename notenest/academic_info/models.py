@@ -21,7 +21,7 @@ class Subject(models.Model):
 class Branch_subject(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-
+    semester=models.IntegerField()
     class Meta:
         unique_together = ('branch', 'subject')
 

@@ -3,7 +3,12 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
-    pass
+    USERTYPE_CHOICES = [
+        ('s', 'Student'),
+        ('t', 'Teacher'),
+        ('p', 'Parent'),
+    ]
+    usertype = models.CharField(max_length=1, choices=USERTYPE_CHOICES)
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

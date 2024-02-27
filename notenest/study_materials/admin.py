@@ -4,6 +4,6 @@ from .models import Material
 
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
-    list_display = ('material_id', 'subject', 'semester')
-    list_filter = ('subject', 'semester')
+    list_display = ('material_id', 'subject')
+    list_filter = ('subject',)
     search_fields = ('subject__subject_name',)

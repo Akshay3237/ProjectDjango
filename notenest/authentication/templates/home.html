@@ -91,20 +91,16 @@
     </style>
 </head>
 <body>
-
     <!-- Navigation Bar -->
     <nav>
         <a href="#">Home</a>
         <div class="dropdown">
             <a href="#">Material</a>
             <div class="dropdown-content">
-                <a href="sem.html">CE</a>
-                <a href="#">IT</a>
-                <a href="#">CH</a>
-                <a href="#">MH</a>
-                <a href="#">EC</a>
-                <a href="#">IC</a>
-                <a href="#">CL</a>
+            
+                {% for branch in branches %}
+                <a href="/academic_info/branch-{{branch.branch_id}}">{{ branch.branch_name }}</a>
+            {% endfor %}
                 <!-- Add more semesters as needed -->
             </div>
         </div>
@@ -113,6 +109,10 @@
         {% if user.is_authenticated %}
             <a href="#">Profile</a>
         {% endif %}
+        {% if user.usertype == "t" %}
+              <a href="{% url "create_material" %}">upload material</a>
+        {% endif %}
+
     </nav>
 
     <!-- Adjusted Vertical Container for Signup/Login and Social Media Buttons -->
