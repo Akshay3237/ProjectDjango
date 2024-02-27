@@ -8,6 +8,8 @@ import random
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from academic_info.models import Branch
+
+from quiz_system.models import Result
 def generate_random_4_digit():
     return random.randint(1000, 9999)
 
@@ -76,3 +78,36 @@ def login_user(request):
 def home(request):
     branches = Branch.objects.all()
     return render(request, 'home.html', {'branches': branches})
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Avg
+import json
+from quiz_system.models import Result, Quiz
+
+def profile_view(request):
+    # Get the current user
+    user = request.user
+    # Retrieve the user's test results
+    test_results = Result.objects.filter(user=user)
+    # Calculate the average marks
+    average_marks = test_results.aggregate(Avg('score'))['score__avg'] or 0
+    # Retrieve the quiz data for the user
+    quiz_data = {}
+    for result in test_results:
+        quiz = result.quiz
+        quiz_key = str(quiz.quiz_id) # Use the quiz ID as the key
+        if quiz_key not in quiz_data:
+            quiz_data[quiz_key] = {'scores': [], 'labels': []}
+        quiz_data[quiz_key]['scores'].append(result.score)
+        quiz_data[quiz_key]['labels'].append(quiz.subject.subject_name)  # Assuming you have a 'name' attribute in your Subject model
+    # Serialize quiz data to JSON
+    quiz_data_json = json.dumps(quiz_data, cls=DjangoJSONEncoder)
+    # Pass data to the template
+    context = {
+        'user': user,
+        'test_results': test_results,
+        'average_marks': average_marks,
+        'quiz_data': quiz_data_json
+    }
+    return render(request, 'profile.html', context)

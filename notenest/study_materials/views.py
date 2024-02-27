@@ -6,7 +6,8 @@ from .models import Material
 def material_view(request):
     subject_id = request.GET.get('subject_id')
     year = request.GET.get('year')
-    material = Material.objects.filter(subject_id=subject_id, year=year, material_type='n', aproved=True).first()
+    type=request.GET.get('type')
+    material = Material.objects.filter(subject_id=subject_id, year=year, material_type=type, aproved=True).first()
     if material:
         # Assuming the material is stored as a file field named 'material'
         file_path = material.material.path
@@ -33,17 +34,18 @@ def create_material(request):
         if form.is_valid():
             subject = form.cleaned_data['subject']
             year = form.cleaned_data['year']
-
+            
             # Check if a material already exists for the same semester, subject, and year
             existing_material = Material.objects.filter(subject=subject, year=year).exists()
             if existing_material:
                 # If material already exists, return an error message
                 error_message = "Material already exists for the same  subject, and year."
                 return render(request, 'create_material.html', {'form': form, 'error_message': error_message})
-            
+
             form.save()
             # Redirect to a success page or any other page after successfully creating the material
             return redirect('home')
     else:
         form = MaterialForm()
     return render(request, 'create_material.html', {'form': form})
+

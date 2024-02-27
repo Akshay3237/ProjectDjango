@@ -29,8 +29,6 @@ def semester_subjects_view(request, semester_id, branch_id):
     
     return render(request, 'semester_subjects.html', {'subjects': subjects,'semester':semester_id,'bid':branch_id})
 
-from django.shortcuts import render
-
 def semester_subjects_branch_view(request, semester_id, branch_id, subject_id):
     # Your view logic here
     context={

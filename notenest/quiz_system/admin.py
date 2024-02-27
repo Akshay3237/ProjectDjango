@@ -16,6 +16,6 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(Result)
 class ResultAdmin(admin.ModelAdmin):
-    list_display = ('result_id', 'student', 'quiz', 'score')
+    list_display = ('result_id', 'user', 'quiz', 'score')
     list_filter = ('quiz',)
-    search_fields = ('student__username', 'quiz__subject__subject_name')
+    search_fields = ('user__username', 'quiz__subject__subject_name')
