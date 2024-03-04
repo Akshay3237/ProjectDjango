@@ -29,14 +29,47 @@
         a:hover {
             text-decoration: underline;
         }
+        .form-container {
+            margin-top: 50px;
+        }
+        .form-container input[type="text"] {
+            width: 200px;
+            height: 30px;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container input[type="submit"] {
+            width: 100px;
+            height: 40px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .error-message {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        
         <h1>About notenest</h1>
         <p>Welcome to notenest! This is a simple and user-friendly application for managing your notes and quizzes.</p>
         <p>Click <a href="{% url 'home' %}">here</a> to go to the home page.</p>
+        <div class="form-container">
+            <form action="{% url "otpVerification" %}">
+                <input type="text" name="otp" placeholder="Enter OTP">
+                <input type="submit" value="Submit">
+            </form>
+            <div class="error-message">
+                {% if error %}
+                    {{ error }}
+                {% endif %}
+            </div>
+        </div>
     </div>
 </body>
 </html>

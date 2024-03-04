@@ -54,9 +54,9 @@ def otpVerification(request):
             else:
                 return render(request, 'login.html', {'success_message': 'something is wrong'})
         else:
-            return render(request, 'register.html', {'error': 'User data not found in session.', 'form': UserRegistrationForm()})
+            return render(request, 'otppage.html', {'error': 'User data not found in session.', 'form': UserRegistrationForm()})
     else:
-        return render(request, 'register.html', {'error': 'Invalid OTP. Please try again.', 'form': UserRegistrationForm()})
+        return render(request, 'otppage.html', {'error': 'Invalid OTP. Please try again.', 'form': UserRegistrationForm()})
 
 
 def login_user(request):

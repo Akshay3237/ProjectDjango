@@ -1,5 +1,3 @@
-<!-- registration/register.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,6 +65,11 @@
 
         button:hover {
             background-color: #45a049;
+        }   
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -79,17 +82,18 @@
             {{ form.as_p }}
 
             <!-- Additional fields for already registered users -->
-            {% if user.is_authenticated %}
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" value="{{ user.username }}" disabled>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="{{ user.email }}" disabled>
-            {% else %}
-            <!-- Link to login page for already registered users -->
-            <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
-            {% endif %}
+           
+          
+            
             <button type="submit">Register</button>
         </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
     </div>
+    <script>
+        // Check if user is authenticated, if yes, redirect to home page
+        {% if user.is_authenticated %}
+            window.location.replace("{% url 'home' %}");
+        {% endif %}
+    </script>
 </body>
 </html>
