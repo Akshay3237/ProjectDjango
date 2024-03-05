@@ -1,0 +1,32 @@
+{% load static %}
+{% include 'authenticate.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semesters</title>
+    <!-- Load the CSS file using the static template tag -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="{% url 'home' %}">Home</a> <!-- Link to home page -->
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+        <div class="semesters">
+            {% for semester in semesters %}
+                <a href="{% url 'semester_subjects' semester_id=semester branch_id=bid %}" class="brand">
+                    <img src="{% static 'semester{{ semester.id }}.jpg' %}" alt="Semester {{ semester }}">
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        // Your existing script remains unchanged
+    </script>
+</body>
+</html>

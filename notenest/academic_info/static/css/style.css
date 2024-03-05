@@ -1,0 +1,104 @@
+/* Common Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light Gray Background */
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #ffffff; /* White Container Background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+}
+
+nav {
+    background-color: #007bff; /* Primary Blue */
+    padding: 10px;
+}
+
+nav a {
+    color: #ffffff; /* White Text */
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+/* Common Styles for Content Area */
+.semesters, .subjects,.branches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Adjusted to space-around for better distribution */
+    margin-top: 20px;
+}
+
+.brand, .subject,.branch {
+    width: 30%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px; /* Increased margin for better spacing */
+    text-align: center;
+    background-color: #ffffff; /* White Background */
+    border: 1px solid #dee2e6; /* Light Gray Border */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.brand:hover, .subject:hover,.branch:hover {
+    background-color: #f2f8ff; /* Light Blue Background on Hover */
+}
+
+.brand img, .subject img,.branch img {
+    max-width: 100%;
+    height: auto;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.navbar {
+    background-color: #3498db;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar a:hover {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.navbar a.active {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.content {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

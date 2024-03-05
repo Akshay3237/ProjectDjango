@@ -1,0 +1,102 @@
+{% include 'authenticate.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #555;
+        }
+
+        .quiz-info {
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .number-of-questions {
+            font-style: italic;
+            color: #666;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            margin: 20px;
+        }
+
+        .buttons a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quizzes</h1>
+        {% if quizzes %}
+        <ul>
+            {% for quiz in quizzes %}
+                <li>
+                    <a href="{% url 'quiz_detail' quiz.quiz_id %}">Quiz {{ quiz.quiz_id }}</a>
+                    <div class="quiz-info">
+                        Number of Questions: <span class="number-of-questions">{{ quiz.number_of_questions }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No quizzes available at the moment.</p>
+    {% endif %}
+
+
+    <div class="buttons">
+        <a href="javascript:history.back()" class="back-button">Back</a>
+        <a href="{% url 'home' %}">Home</a>
+    </div>
+</body>
+</html>

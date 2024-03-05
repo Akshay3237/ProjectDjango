@@ -1,0 +1,111 @@
+{% include 'authenticate.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result-box {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .result-message {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .result-score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .alert-success {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .alert-warning {
+            background-color: #ff9800;
+            color: #fff;
+        }
+        
+        .buttons {
+            margin-top: 20px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            margin: 20px;
+        }
+
+        .buttons a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <a href="javascript:history.back()" class="back-button">Back</a>
+        <a href="{% url 'home' %}">Home</a>
+    </div>
+    <h1>Quiz Result</h1>
+    <div>
+        <p>Quiz: {{ result.quiz }}</p>
+        <p>Score: {{ result.score }}%</p>
+    </div>
+    <!-- Your JavaScript code -->
+</body>
+</html>

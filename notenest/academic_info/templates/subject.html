@@ -1,0 +1,146 @@
+{% load static %}
+{% include 'authenticate.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yearly Options</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .year {
+      display: inline-block;
+      background-color: #fff;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .year span {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .options {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      text-align: left;
+      width: 150px;
+    }
+
+    .year:hover .options {
+      display: block;
+      z-index:1;
+    }
+
+    .options a {
+      text-decoration: none;
+      color: #555;
+      display: block;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .column {
+      display: inline-block;
+      vertical-align: top;
+      width: 45%; /* Adjust as needed */
+    }
+  </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="javascript:history.back()" class="back-button">Back</a>
+    </nav>
+<h1>Yearly Options</h1>
+
+<div class="column">
+  <ul id="yearly-options-left" style="display: flex;flex-direction: column;">
+  </ul>
+</div>
+
+<div class="column">
+  <ul id="yearly-options-right" style="display: flex;flex-direction: column;">
+  </ul>
+</div>
+<h3 style="text-align:right">
+  <button style="background:blue; border-radius:50px;width:100px;height:30px">
+    <a href="{% url 'quiz' subject_id=subid %}" style="color: white;">take quiz</a>
+  </button>
+</h3>
+
+<script>
+  // Get the current year
+  const currentYear = new Date().getFullYear();
+
+  // Create array for storing years in reverse order
+  const yearsList = [];
+  const ys=8;
+  // Populate the array with years from current year to current year - 8
+  for (let year = currentYear; year >= currentYear - ys; year--) {
+    yearsList.push(year);
+  }
+
+  // Function to generate the URL for the material
+  const generateMaterialURL = (year,type) => {
+    
+    return `/study_materials/material?subject_id={{ subid }}&year=${year}&type=${type}`;
+
+  };
+
+  // Get the ul elements to append the list of years
+  const yearlyOptionsLeft = document.getElementById("yearly-options-left");
+  const yearlyOptionsRight = document.getElementById("yearly-options-right");
+
+  // Populate the left column with years from current year to current year - 8
+  yearsList.forEach((year, index) => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("year");
+    listItem.innerHTML = `
+      <span>${year}</span>
+      <div class="options">
+        <a href="${generateMaterialURL(year,'n')}">Notes</a>
+        <a href="${generateMaterialURL(year,'p')}">Paper</a>
+      </div>
+    `;
+    if (index % 2 === 0) {
+      yearlyOptionsLeft.appendChild(listItem);
+    } else {
+      yearlyOptionsRight.appendChild(listItem);
+    }
+  });
+</script>
+
+</body>
+</html>

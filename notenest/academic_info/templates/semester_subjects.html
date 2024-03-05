@@ -1,0 +1,39 @@
+{% load static %}
+{% include 'authenticate.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="javascript:history.back()" class="back-button">Back</a>
+        </nav>
+        <div class="subjects">
+            {% if subjects %}
+                {% for subject in subjects %}
+                <div class="subject">
+                    <a href="{% url 'subjects' semester_id=semester branch_id=bid subject_id=subject.subject_id %}">
+                        <p>{{ subject.subject_name }}</p>
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-subjects">Currently no subjects are available.</p>
+            {% endif %}
+        </div>
+       
+    </div>
+    <script>
+        // Your existing script remains unchanged
+    </script>
+</body>
+</html>

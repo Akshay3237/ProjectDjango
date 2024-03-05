@@ -1,0 +1,5 @@
+{% if user.usertype != "t" %}
+<script>
+    window.location.href = "{% url 'home' %}";
+</script>
+{% endif %}
