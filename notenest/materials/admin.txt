@@ -1,0 +1,112 @@
+when we deploy project then we need to create some admins manualy in database.
+
+INSERT INTO `user` (`active`, `user_id`, `address`, `password`, `phone_number`, `user_name`) VALUES ('1', '1', 'nadiad educational society', '{bcrypt}$2a$10$7KzLxdXOxC21DEXKVfHdjeDuCTbOrjbhhvH0AwVkayZZGmraKrv0a', '6352523855', 'akshay');
+INSERT INTO `user` (`active`, `user_id`, `address`, `password`, `phone_number`, `user_name`) VALUES ('1', '2', 'vaniyavad circle', '{bcrypt}$2a$10$5lOc0TKhIRVV9ADX/6AUPuc/dd7fm/bmUCHi3.Ul3qu9Q26.BNqlG', '6354235492', 'nikunj');
+INSERT INTO `roles` (`user_id`, `role`) VALUES ('1', 'ROLE_ADMIN');
+INSERT INTO `roles` (`user_id`, `role`) VALUES ('2', 'ROLE_ADMIN');
+
+
+then some links for usefull to admin:-
+
+GET REQUEST ONLY
+
+localhost:8080/admin/clients  //for see all clients
+localhost:8080/admin/clients/2  //for all clients in parking zone2
+localhost:8080/admin/users //all users who involves in this system
+localhost:8080/admin/parkingzones //all parking zones
+localhost:8080/admin/vehicles //number of vehicles present in all parking zones
+localhost:8080/admin/vehicles/2 //number of vehicles present in parking zone 2
+localhost:8080/admin/profit //total (net) profit by all parking zones
+localhost:8080/admin/profit/2 //net profit by parking zone 2
+localhost:8080/admin/histories //history of all parking zones
+localhost:8080/admin/histories/2 //history of parking zone 2
+localhost:8080/admin/transactions //transaction details of all parking zones
+localhost:8080/admin/transactions/2 //transaction details of parking zone 2
+
+POST REQUEST ONLY
+
+localhost:8080/admin/createparkingzone
+
+with body:->
+{
+        "parkingZoneName": "grander nagar",
+        "numberOfCar": 20,
+        "numberOfBike": 10,
+        "numberOfTruck": 10,
+        "numberOfAuto": 10,
+        "parkingManager": {
+            "userName": "rajhansh",
+            "phoneNumber": "4525658231",
+            "address": "raj durga socity",
+            "password": "rajhansh",
+            "active": true
+        },
+        "parkingCost": 50.00,
+        "delayCost": 30.00
+}
+
+localhost:8080/admin/createmanager //using this link we can create manager but "dont do this"(this is not recommended)
+
+with body->
+{
+            "userName": "rajhansh",
+            "phoneNumber": "4525658231",
+            "address": "raj durga socity",
+            "password": "rajhansh",
+            "active": true
+}
+
+UPDATE REQUEST ONLY //it is remaining and it may comes in furthur version of this project
+
+some links which usefull for parking manager
+NOTE:- Parking manager can see details about his/her parkingzone (internaly that happens)
+GET REQUEST ONLY
+localhost:8080/parkingmanager/users //can see all clients or user under parkingzone whose manager who are logged in
+localhost:8080/parkingmanager/availablespaces  //for see available spaces
+localhost:8080/parkingmanager/parkingspaces //that will show how many speces are allocated with which vehicles with details of users
+localhost:8080/parkingmanager/transactions //all transactions happend in parking zone
+localhost:8080/parkingmanager/transactions/2 //see transaction 2
+localhost:8080/parkingmanager/vehicles  //show how many vehicles are present in parkingzone
+localhost:8080/parkingmanager/profit //for show parkingzone profit
+localhost:8080/parkingmanager/histories //for see parking zone history
+
+POST REQUEST ONLY
+localhost:8080/parkingmanager/users //for creating client
+if you create client as parking manager , you have to give user id to user as reciept for user next time come then no need to create new acount for it
+
+
+localhost:8080/parkingmanager/parkingspaces  //this create parking space (creating parking space mean when user comes with vehicle then do entry of vehicle with user name but before this we need to create an user as client by parking manger)
+ here creating parking space ,parking manager need to see parking space id and give it to user as token bcz while user will come for taking his vehicle user need to know vehicle
+
+
+    {
+        "parkingZone": {
+            "parkingZoneId": 1
+        },
+        "user": {
+            "userId": 3
+        },
+        "vehicleType": "C",
+        "vehicleNumber": 250
+    }
+
+
+
+ONLY FOR DELETE REQUEST
+
+localhost:8080/parkingmanager/parkingspaces/19 //when user will come for taking vehicle so parking manager has to get space id from user and user id and cross verify with link parkingspaces with get
+after verifying user has to send request on this link with parking space then system will return transaction with cost and transaction id and client need to give cost acordingly and if client has not money then he/she can give after some time but delay chanrge will charges
+so for parking manger need to give transaction id as reciept to user for when client will come for pay they have give transaction id
+
+ONLY FOR PUT REQUEST
+
+localhost:8080/parkingmanager/transactions/4 //when client will come for pay first parkikng manger need to see cost and delay cost and take money from client and send request in this link so transaction will become status true(means paid)
+
+
+REQUEST FOR CLIENTS
+
+ONLY GET REQUESTS
+
+localhost:8080/client/parkingzones //for see parking zones and it number/id
+localhost:8080/client/parkingzones/2 //space availablity for give parking zone whose id is 2
+localhost:8080/client/transactions/2 //transaction 2 if it happens by user who logged in otherwise it not show anything

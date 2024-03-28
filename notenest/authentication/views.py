@@ -111,3 +111,8 @@ def profile_view(request):
         'quiz_data': quiz_data_json
     }
     return render(request, 'profile.html', context)
+
+
+def about_us_view(request):
+    
+    return render(request,'about_us.html')

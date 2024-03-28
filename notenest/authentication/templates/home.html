@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            overflow-x: hidden;
         }
 
         /* Navigation Bar Styles */
@@ -20,13 +21,24 @@
             padding: 10px;
             text-align: center;
         }
-
+        nav a button{
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+            z-index:0;
+        }
         nav a {
             color: #fff;
             text-decoration: none;
             padding: 10px;
             margin: 0 5px;
         }
+      
+   
 
         /* Dropdown Styles */
         .dropdown {
@@ -61,7 +73,7 @@
             margin: 20px;
             position: absolute;
             top: 0;
-            right: 0;
+            right: 5%;
             padding: 20px;
             background-color: #eee;
             border: 1px solid #ddd;
@@ -155,7 +167,6 @@
                 <!-- Add more semesters as needed -->
             </div>
         </div>
-        <a href="#">Documentation</a>
         {% if user.usertype == "t" %}
               <a href="{% url "create_material" %}">upload material</a>
         {% endif %}
@@ -187,14 +198,19 @@
             <a href="#">More</a>
             <div class="dropdown-content">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">Logout</a>
+                <a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button id="logout" type="submit" style="border: none; background-color: white; color: #3498db; font-size: 16px; cursor: pointer;">Logout</button>
+                </form>
+                </a>
                 {% else %}
                     <a href="{% url 'register' %}">Sign Up</a>
                     <a href="{% url 'login' %}">Login</a>
                 {% endif %}
-                <a href="#">Instagram</a>
-                <a href="#">Facebook</a>
-                <a href="#">Google</a>
+                <a href="">Instagram</a>
+                <a href="">Facebook</a>
+                <a href="mailto:multiwebsites4@gmail.com">Google</a>
                 {% if user.is_authenticated %}
                     <a href="{% url "profile" %}">Profile</a>
                 {% endif %}
@@ -204,8 +220,8 @@
 
     <!-- Footer -->
     <footer>
-        <a href="#about">About Us</a>
-        <a href="#contact">Contact Us</a>
+        <a href="{% url "about_us" %}">About Us</a>
+        <a href="https://forms.gle/YeQaZqCZTBDD64yS6">Contact Us</a>
     </footer>
 
 </body>

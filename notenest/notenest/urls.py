@@ -18,6 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('authentication.urls')),
     path('authentication/', include('authentication.urls')),
     path('academic_info/', include('academic_info.urls')),
     path('quiz_system/', include('quiz_system.urls')),  # Include URLs for quiz_system app
