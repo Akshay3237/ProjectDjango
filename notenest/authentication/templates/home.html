@@ -168,7 +168,7 @@
             </div>
         </div>
         {% if user.usertype == "t" %}
-              <a href="{% url "create_material" %}">upload material</a>
+              <a href="{% url "create_material" %}">Upload Material</a>
         {% endif %}
 
     </nav>
@@ -208,7 +208,7 @@
                     <a href="{% url 'register' %}">Sign Up</a>
                     <a href="{% url 'login' %}">Login</a>
                 {% endif %}
-                <a href="">Instagram</a>
+                <a href="https://www.instagram.com/aksh_gohel6/" target="_blank">Instagram</a>
                 <a href="">Facebook</a>
                 <a href="mailto:multiwebsites4@gmail.com">Google</a>
                 {% if user.is_authenticated %}
@@ -221,7 +221,7 @@
     <!-- Footer -->
     <footer>
         <a href="{% url "about_us" %}">About Us</a>
-        <a href="https://forms.gle/YeQaZqCZTBDD64yS6">Contact Us</a>
+        <a href="https://forms.gle/YeQaZqCZTBDD64yS6" target="_blank">Contact Us</a>
     </footer>
 
 </body>
