@@ -116,3 +116,42 @@ def profile_view(request):
 def about_us_view(request):
     
     return render(request,'about_us.html')
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import StudentForm, TutorForm, ParentForm
+from .models import Student, Tutor, Parent
+
+def user_info_form(request):
+    user = request.user
+    form = None
+    instance = None
+
+    # Determine the appropriate form class based on the user's type
+    if user.usertype == 's':
+        form_class = StudentForm
+        model_class = Student
+    elif user.usertype == 't':
+        form_class = TutorForm
+        model_class = Tutor
+    elif user.usertype == 'p':
+        form_class = ParentForm
+        model_class = Parent
+    
+    try:
+        # Check if there's an existing instance for the user
+        instance = model_class.objects.get(user=user)
+    except model_class.DoesNotExist:
+        # If the instance doesn't exist, create a new one
+        instance = model_class(user=user)  # Create a new instance with user set
+    
+    if request.method == 'POST':
+        # If there's an existing instance, update its data; otherwise, create a new record
+        form = form_class(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to success page after saving
+    else:
+        # If there's an existing instance, initialize the form with its data
+        form = form_class(instance=instance)
+
+    return render(request, 'user_info_form.html', {'form': form})

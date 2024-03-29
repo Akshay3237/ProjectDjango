@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
+    <style>
+        /* CSS for HTML form */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+           
+            height: 100vh;
+            align-content: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: auto; /* Center the container horizontally */
+            margin-top: 10vh; 
+        }
+
+        h1 {
+            color: #333;
+            font-family: "Times New Roman", Times, serif; /* Change font family for the heading */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-top: 10px;
+            font-family: "Courier New", Courier, monospace; /* Change font family for labels */
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif; /* Change font family for input fields */
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: "Verdana", sans-serif; /* Change font family for buttons */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }   
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Navigation menu styles */
+        nav {
+            background-color: #3498db;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            background-color: #2980b9;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation menu -->
+    <nav class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'profile' %}"> Profile</a> 
+        
+        <a href='contactus.html'>Contact us</a>
+        <a href='{% url "logout" %}'>Log Out</a>
+    </nav>
+ <p></p>
+    <div class="container">
+        <h1>Specify More Information</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
