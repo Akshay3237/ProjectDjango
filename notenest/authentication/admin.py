@@ -10,17 +10,12 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('student_id', 'user', 'branch_id', 'year', 'sem')
-    list_filter = ('branch_id',)
-    search_fields = ('student_id', 'user__username', 'user__email')
+    list_display = ['user', 'branch_id', 'year', 'sem']
 
 @admin.register(Tutor)
 class TutorAdmin(admin.ModelAdmin):
-    list_display = ('tutor_id', 'user', 'subject_id')
-    list_filter = ('subject_id',)
-    search_fields = ('tutor_id', 'user__username', 'user__email')
+    list_display = ['user', 'subject_id']
 
 @admin.register(Parent)
 class ParentAdmin(admin.ModelAdmin):
-    list_display = ('parent_id', 'user', 'student_id')
-    search_fields = ('parent_id', 'user__username', 'user__email')
+    list_display = ['user', 'student_id']

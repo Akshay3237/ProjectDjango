@@ -20,8 +20,8 @@
         <div class="semesters">
             {% for semester in semesters %}
                 <a href="{% url 'semester_subjects' semester_id=semester branch_id=bid %}" class="brand">
-                    <img src="{% static 'semester{{ semester.id }}.jpg' %}" alt="Semester {{ semester }}">
-                </a>
+                    <img src="{% static 'semester' %}{{ semester.id }}.jpg" alt="Semester {{ semester }}">
+                </a>               
             {% endfor %}
         </div>
     </div>
