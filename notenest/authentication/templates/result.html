@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Test Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Test Results</h1>
+
+        <div>
+            <!-- Display student name and ID -->
+            <h2>Student: {{ student.0.username }} (ID: {{ student.0.id }})</h2>
+        </div>
+
+        <div>
+            <!-- Display average marks -->
+            <h2>Average Marks: {{ average_marks }}</h2>
+        </div>
+
+        <!-- Display test results -->
+        <div>
+            <h2>Test Results:</h2>
+            <ul>
+                {% for result in test_results %}
+                    <li>Test: {{ result.quiz }} - Score: {{ result.score }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Link to home page -->
+        <div>
+            <a href="{% url 'home' %}">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

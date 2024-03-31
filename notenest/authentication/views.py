@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib import messages
 from .forms import UserRegistrationForm
 import random
@@ -155,3 +155,45 @@ def user_info_form(request):
         form = form_class(instance=instance)
 
     return render(request, 'user_info_form.html', {'form': form})
+
+# views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Avg
+import json
+from quiz_system.models import Result, Quiz
+
+def show_result(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('studentID')
+        # Retrieve the test results for the student
+        u=User.objects.all().filter(id=student_id)
+        
+        test_results = Result.objects.filter(user_id=student_id)
+        
+        
+        # Calculate the average marks
+        average_marks = test_results.aggregate(Avg('score'))['score__avg'] or 0
+        # Retrieve additional data related to the tests
+        quiz_data = {}
+        for result in test_results:
+            quiz = result.quiz
+            quiz_key = str(quiz.quiz_id) # Use the quiz ID as the key
+            if quiz_key not in quiz_data:
+                quiz_data[quiz_key] = {'scores': [], 'labels': []}
+            quiz_data[quiz_key]['scores'].append(result.score)
+            quiz_data[quiz_key]['labels'].append(quiz.subject.subject_name)  # Assuming you have a 'name' attribute in your Subject model
+        # Serialize quiz data to JSON
+        quiz_data_json = json.dumps(quiz_data, cls=DjangoJSONEncoder)
+        # Pass data to the template
+        context = {
+            'test_results': test_results,
+            'average_marks': average_marks,
+            'quiz_data': quiz_data_json,
+            'student':u,
+        }
+        return render(request, 'result.html', context)
+    else:
+        # If the request method is not POST, return an error message
+        return redirect('home')

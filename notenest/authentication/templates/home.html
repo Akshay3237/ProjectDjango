@@ -158,21 +158,34 @@
 
     <!-- Navigation Bar -->
     <nav>
+        {% if user.usertype != "p" %}
         <div class="dropdown">
             <a href="#">Material</a>
             <div class="dropdown-content">
                 {% for branch in branches %}
                 <a href="/academic_info/branch-{{branch.branch_id}}">{{ branch.branch_name }}</a>
             {% endfor %}
-                <!-- Add more semesters as needed -->
+                
             </div>
         </div>
+        {% endif %}
         {% if user.usertype == "t" %}
               <a href="{% url "create_material" %}">Upload Material</a>
         {% endif %}
 
+        {% if user.usertype == "p" or user.usertype == "t" %}
+            <a href="#" onclick="openPopup()">View Children Progress</a>
+        {% endif %}
     </nav>
-
+    <div id="popupForm" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #f9f9f9; padding: 20px; border: 1px solid #ccc; border-radius: 5px; z-index: 9999;">
+        <form action="{% url "show_result" %}" method="post">
+            {% csrf_token %}
+            <label for="studentID">Enter Student ID:</label><br>
+            <input type="number" id="studentID" name="studentID" required><br><br>
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
 
     <!-- Carousel -->
     <div class="container">
@@ -226,7 +239,16 @@
 
 </body>
 <script>
+    
     // JavaScript to control the slider
+    function openPopup() {
+        document.getElementById("popupForm").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("popupForm").style.display = "none";
+    }
+
     function carousel() {
     let i;
     let slides = document.getElementsByClassName("slider-img");
